@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const mongoose = require('mongoose');
+const crypto = require('crypto')
 const jwt = require('jsonwebtoken');
 const sendEmail = require('./email.send');
 const templates = require('./email.templates');
@@ -137,6 +138,71 @@ module.exports = {
                 error: 'E-mail não encontrado, favor realizar novo cadastro.'
             });
         }
+    },
+
+    async forgotPassword(req, res) {
+
+        const { email } = req.body;
+
+        User.findOne({ email: email }, async function (err, user) {
+            if (err) {
+                console.error(err);
+                res.status(500)
+                    .json({
+                        error: 'Erro interno, favor tentar novamente'
+                    });
+            } else if (!user) {
+                res.status(401)
+                    .json({
+                        error: 'E-mail não encontrado em nossa base de dados'
+                    });
+            } else {
+
+                // Issue token
+                const token = crypto.randomBytes(20).toString('hex');
+                
+                const userUpdated = await User.findByIdAndUpdate(user._id, {
+                    forgotToken: token,
+                    forgotTokenExpir: Date.now() + 3600000
+                }, { new: true, select: '-password' });
+
+                if (userUpdated.forgotToken === token) {
+                    sendEmail(userUpdated.email, templates.forgot(token));
+                    return res.status(200).json('E-mail de recuperação enviado, ' +
+                    'favor verificar sua caixa de entrada, SPAM e lixo eletrônico.');
+                } else {
+                    return res.status(500).json('Erro ao enviar e-mail, ' +
+                    'favor tentar novamente ou entre em contato conosco.');
+                }
+            }
+        });
+    },
+
+    async changePassword(req, res) {
+
+        const { token, newpass } = req.body.params;
+
+        User.findOne({ forgotToken: token, forgotTokenExpir: {$gt: Date.now()} }, 
+        function (err, user) {
+            if (err) {
+                console.error(err);
+                res.status(500)
+                    .json({
+                        error: 'Erro interno, favor tentar novamente'
+                    });
+            } else if (!user) {
+                res.status(401)
+                    .json({
+                        error: 'Link inválido ou já expirado'
+                    });
+            } else {
+                user.password = newpass;
+                user.save();
+                res.status(200).json({
+                    message: 'Senha alterada com sucesso'
+                });
+            }
+        });
     },
 
     //Atualizar usuário

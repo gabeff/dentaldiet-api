@@ -39,6 +39,14 @@ const UserSchema = new Schema({
         type: Boolean,
         default: false
     },
+    forgotToken: {
+        type: String,
+        required: false,
+    },
+    forgotTokenExpir: {
+        type: Date,
+        required: false,
+    },
 }, {
         timestamps: true,
     });

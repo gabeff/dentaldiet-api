@@ -24,6 +24,8 @@ routes.post('/listUsers',  UserController.index);
 routes.post('/updateUser',  UserController.update);
 routes.post('/updateUserPass',  UserController.updatePassword);
 routes.post('/registerUser', UserController.store);
+routes.post('/forgotPassword', UserController.forgotPassword);
+routes.post('/changePassword', UserController.changePassword);
 
 //rotas email
 routes.get('/email/confirm/:id', UserController.confirmEmail);

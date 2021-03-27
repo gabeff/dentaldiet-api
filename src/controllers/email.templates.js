@@ -21,4 +21,14 @@ module.exports = {
     `,      
     text: `Copie e cole esse link: https://dentaldiet.web.app/Confirm/${id}`
   }),  
+
+  forgot: token => ({
+    subject: 'Dental Diet - Recuperação de senha',
+    text: `
+      Você está recebendo esse e-mail porque você ou outra pessoa solicitou uma mudança de senha para sua conta. \n\n
+      Por favor clique no link abaixo, ou copie e cole em seu navegador para completar o processo dentro de uma hora desde o recebimento deste. \n\n
+      https://dentaldiet.web.app/AlterarSenha/${token} \n\n
+      Caso você não tenha requisitado essa alteração, favor ignorar este e-mail e sua senha permanecerá inalterada.
+    `,
+  })
 }
