@@ -10,16 +10,16 @@ module.exports = {
     html: `
     'Prezado(a) ' ${nome}, <br />
       <br />
-      Para confirmar o seu e-mail informado, <a href=https://dentaldiet.web.app/Confirm/${id}>clique aqui.</a><br />
+      Para confirmar o seu e-mail informado, <a href=https://dental-diet.web.app/Confirm/${id}>clique aqui.</a><br />
       <br />
       Obrigado por utilizar nossos serviços. Qualquer dúvida, entre em contato conosco.<br />
       <br />
       Atenciosamente,<br />
       <br />
       Equipe Dental Diet<br />
-      https://dentaldiet.web.app/
+      https://dental-diet.web.app/
     `,      
-    text: `Copie e cole esse link: https://dentaldiet.web.app/Confirm/${id}`
+    text: `Copie e cole esse link: https://dental-diet.web.app/Confirm/${id}`
   }),  
 
   forgot: token => ({
@@ -27,7 +27,7 @@ module.exports = {
     text: `
       Você está recebendo esse e-mail porque você ou outra pessoa solicitou uma mudança de senha para sua conta. \n\n
       Por favor clique no link abaixo, ou copie e cole em seu navegador para completar o processo dentro de uma hora desde o recebimento deste. \n\n
-      https://dentaldiet.web.app/AlterarSenha/${token} \n\n
+      https://dental-diet.web.app/AlterarSenha/${token} \n\n
       Caso você não tenha requisitado essa alteração, favor ignorar este e-mail e sua senha permanecerá inalterada.
     `,
   })
