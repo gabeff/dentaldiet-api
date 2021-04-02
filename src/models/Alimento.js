@@ -34,7 +34,12 @@ const AlimentoSchema = new Schema({
         type: Boolean,
         required: true,
         default: false
-    }
+    },
+    user_id: {
+        type: Schema.Types.ObjectId, 
+        ref: 'User',
+        required: false
+    },
 }, {
     timestamps: true,
 });
