@@ -65,7 +65,6 @@ const run = async () => {
     app.use(logger('dev'));
     app.use(cors({
         "origin": whitelist, 
-        // "origin": "http://localhost:3000",
         "credentials": true,
         "exposedHeaders": ["Uid", "Access-Token"]
     }));
